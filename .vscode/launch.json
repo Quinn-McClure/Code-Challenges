@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "wcTool",
+            "request": "launch",
+            "mainClass": "wcTool -w ./tests/test.txt",
+            "projectName": "Code-Challenges_dfbafa08"
+        },
+        {
+            "type": "java",
+            "name": "Launch Java Program",
+            "request": "launch",
+            "args": "projects.rtf",
+            "mainClass": ""
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Remix",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--inspect-brk=9229",
+                "/remix/package.json"
+            ],
+            "cwd": "${workspaceFolder}",
+            "port": 9229,
+            "restart": true,
+            "timeout": 30000,
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/build/**"
+            ]
+        }
+    ]
+}
