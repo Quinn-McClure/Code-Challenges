@@ -6,8 +6,6 @@ public class wcTool {
     public long lines;
     public long words;
 
-    //TODO: implementing file processing once or in every method??
-
 
     public void processBytes(String fileName) throws IOException{
         try (FileInputStream fis = new FileInputStream((fileName))){
@@ -23,6 +21,7 @@ public class wcTool {
         }
     }
 
+    //FIXME - new line character doesnt register as new line
     public void processLines(String fileName) throws IOException{
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
             long lineCount = 0;
@@ -57,7 +56,7 @@ public class wcTool {
         if (args.length > 0) {
             wcTool tool = new wcTool();
             for(int i = 0; i < args.length; i ++) {
-                if(args[i].equals("-c")) {
+                if(args[i].equals("-c")) { //number of bytes
                     try {
                         tool.processBytes(args[i + 1]);
                         System.out.println(tool.bytes);
@@ -65,7 +64,7 @@ public class wcTool {
                         System.err.println("Error reading file: " + e.getMessage());
                     }
                 }
-                else if(args[i].equals("-l")) {
+                else if(args[i].equals("-l")) { //number of lines
                     try {
                         tool.processLines(args[i + 1]);
                         System.out.println(tool.lines);
@@ -73,7 +72,7 @@ public class wcTool {
                         System.err.println("Error reading file: " + e.getMessage());
                     }
                 }
-                else if(args[i].equals("-w")) {
+                else if(args[i].equals("-w")) { //number of words
                     try {
                         tool.processWords(args[i + 1]);
                         System.out.println(tool.words);
