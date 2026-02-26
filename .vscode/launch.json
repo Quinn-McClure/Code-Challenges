@@ -4,7 +4,8 @@
             "type": "java",
             "name": "wcTool",
             "request": "launch",
-            "mainClass": "wcTool -w ./tests/test.txt",
+            "mainClass": "wcTool",
+            "args": "-m tests/test.txt",
             "projectName": "Code-Challenges_dfbafa08"
         },
         {
@@ -23,7 +24,7 @@
                 "--inspect-brk=9229",
                 "/remix/package.json"
             ],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/wc-tool",
             "port": 9229,
             "restart": true,
             "timeout": 30000,
