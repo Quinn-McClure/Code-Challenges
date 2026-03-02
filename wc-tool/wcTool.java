@@ -72,7 +72,10 @@ public class wcTool {
         if (args.length > 0) {
             wcTool tool = new wcTool();
             for(int i = 0; i < args.length; i ++) {
-                if(args[i].equals("-c")) { //number of bytes
+                if () {
+                    
+                }
+                else if(args[i].equals("-c")) { //number of bytes
                     try {
                         tool.processBytes(args[i + 1]);
                         System.out.println(tool.bytes);
