@@ -10,34 +10,55 @@ public class wcTool {
 
     public void processBytes(String fileName) throws IOException{
         try (FileInputStream fis = new FileInputStream((fileName))){
-            long byteCount = 0;
+            processBytes(fis);
+        }
+    }
+
+    public void processBytes(InputStream in) throws IOException { //filename not provided
+        long byteCount = 0;
             byte[] buffer = new byte[8192];
             int bytesRead;
 
-            while ((bytesRead = fis.read(buffer)) != -1) {
+            while ((bytesRead = in.read(buffer)) != -1) {
                 byteCount += bytesRead;
             }
 
             this.bytes = (int) byteCount;
-        }
     }
 
     public void processLines(String fileName) throws IOException{
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
-            long lineCount = 0;
-            String line;
-
-            while((line = br.readLine()) != null) {
-                lineCount++;
-            }
-
-            this.lines = (int) lineCount;
+            processLines(br);
         }
+    }
+
+    public void processLines(Reader r) throws IOException { //filename not provided
+        BufferedReader br = (r instanceof BufferedReader)
+            ? (BufferedReader) r
+            : new BufferedReader(r);
+
+        long lineCount = 0;
+        String line;
+
+        while((line = br.readLine()) != null) {
+            lineCount++;
+        }
+
+        this.lines = (int) lineCount;
     }
 
     public void processWords(String fileName) throws IOException{
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
-            int wordCount = 0;
+            processWords(br);
+        }
+    }
+
+    public void processWords(Reader r) throws IOException { //filename not provided
+        BufferedReader br = (r instanceof BufferedReader)
+        ? (BufferedReader) r
+        : new BufferedReader(r);
+
+        int wordCount = 0;
             String line;
 
             while((line = br.readLine()) != null) {
@@ -51,19 +72,24 @@ public class wcTool {
             }
 
             this.words = (int) wordCount;
-        }
+
     }
 
     public void processChars(String fileName) throws IOException{
         try (FileReader fr = new FileReader(fileName)){
-            long charCount = 0;
+            processChars(fr);
+        }
+    }
+
+    public void processChars(Reader r) throws IOException { //filename not provided
+
+        long charCount = 0;
             int ch = 0;
-            while(fr.read() != -1) {
+            while(r.read() != -1) {
                 charCount++;
             }
 
             this.characters = (int) charCount;
-        }
     }
 
 
@@ -72,37 +98,58 @@ public class wcTool {
         if (args.length > 0) {
             wcTool tool = new wcTool();
             for(int i = 0; i < args.length; i ++) {
-                if () {
-                    
-                }
-                else if(args[i].equals("-c")) { //number of bytes
+                if(args[i].equals("-c")) { //number of bytes
                     try {
-                        tool.processBytes(args[i + 1]);
+                        if ( i + 1 < args.length && !args[i + 1].startsWith("-")) { //filename is after flag
+                            tool.processBytes(args[i + 1]);
+                        }
+                        else { //no filename, read from stdin
+                            tool.processBytes(System.in);
+                        }
                         System.out.println(tool.bytes);
+                        i++;
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
                     }
                 }
                 else if(args[i].equals("-l")) { //number of lines
                     try {
-                        tool.processLines(args[i + 1]);
+                        if ( i + 1 < args.length && !args[i + 1].startsWith("-")) { //filename is after flag
+                            tool.processLines(args[i + 1]);
+                        }
+                        else { //no filename, read from stdin
+                            tool.processLines(new InputStreamReader(System.in));
+                        }
                         System.out.println(tool.lines);
+                        i++;
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
                     }
                 }
                 else if(args[i].equals("-w")) { //number of words
                     try {
-                        tool.processWords(args[i + 1]);
+                        if ( i + 1 < args.length && !args[i + 1].startsWith("-")) { //filename is after flag
+                            tool.processWords(args[i + 1]);
+                        }
+                        else { //no filename, read from stdin
+                            tool.processWords(new InputStreamReader(System.in));
+                        }
                         System.out.println(tool.words);
+                        i++;
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
                     }
                 }
                 else if(args[i].equals("-m")) { //number of characters
                     try {
-                        tool.processChars(args[i + 1]);
+                        if ( i + 1 < args.length && !args[i + 1].startsWith("-")) { //filename is after flag
+                            tool.processChars(args[i + 1]);
+                        }
+                        else { //no filename, read from stdin
+                            tool.processChars(new InputStreamReader(System.in));
+                        }
                         System.out.println(tool.characters);
+                        i++;
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
                     }
