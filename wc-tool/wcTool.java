@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class wcTool {
     public long bytes;
@@ -16,14 +15,14 @@ public class wcTool {
 
     public void processBytes(InputStream in) throws IOException { //filename not provided
         long byteCount = 0;
-            byte[] buffer = new byte[8192];
-            int bytesRead;
+        byte[] buffer = new byte[8192];
+        int bytesRead;
 
-            while ((bytesRead = in.read(buffer)) != -1) {
-                byteCount += bytesRead;
-            }
+        while ((bytesRead = in.read(buffer)) != -1) {
+            byteCount += bytesRead;
+        }
 
-            this.bytes = (int) byteCount;
+        this.bytes = (int) byteCount;
     }
 
     public void processLines(String fileName) throws IOException{
@@ -59,19 +58,19 @@ public class wcTool {
         : new BufferedReader(r);
 
         int wordCount = 0;
-            String line;
+        String line;
 
-            while((line = br.readLine()) != null) {
-                line = line.trim();
-                if(line.isEmpty()) {
-                    continue;
-                }
-                String[] wordsInLine = line.split("\\s+");
-                int count = wordsInLine.length;
-                wordCount += count;
+        while((line = br.readLine()) != null) {
+            line = line.trim();
+            if(line.isEmpty()) {
+                continue;
             }
+            String[] wordsInLine = line.split("\\s+");
+            int count = wordsInLine.length;
+            wordCount += count;
+        }
 
-            this.words = (int) wordCount;
+        this.words = (int) wordCount;
 
     }
 
@@ -84,12 +83,12 @@ public class wcTool {
     public void processChars(Reader r) throws IOException { //filename not provided
 
         long charCount = 0;
-            int ch = 0;
-            while(r.read() != -1) {
-                charCount++;
-            }
+        int ch = 0;
+        while(r.read() != -1) {
+            charCount++;
+        }
 
-            this.characters = (int) charCount;
+        this.characters = (int) charCount;
     }
 
 
