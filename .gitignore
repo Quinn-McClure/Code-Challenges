@@ -1,0 +1,33 @@
+# Compiled Java classes
+*.class
+
+# Log files
+*.log
+
+# OS-specific
+.DS_Store
+
+# IDE / Editor
+.vscode/
+.idea/
+*.iml
+
+# Build / dependency directories (if added later)
+target/
+build/
+out/
+bin/
+.gradle/
+.mvn/
+
+# Java / tooling
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_*.log
+
+# Misc
+*.swp
+*.swo
+*.tmp
