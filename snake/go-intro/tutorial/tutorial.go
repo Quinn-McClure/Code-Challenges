@@ -41,5 +41,38 @@ func main() {
 	e = append(e, 6)
 
 	//-- Maps --
+	// make(map[<key-type>]<value-type>)
+	// key, value pairs
 
+	a := make(map[string]int)
+	a["test"] = 10
+
+	delete(a, "test")
+
+	//-- Loops --
+	// for <declaration>; <condition>; <update> {}
+
+	//standard for loop
+	for i := 0; i < 10; i ++ {
+
+	}
+
+	//while loop
+	b := 0
+
+	for b < 10 {
+		b ++
+	}
+
+	//endless loop
+	for {
+
+	}
+
+}
+
+// -- Functions --
+// func <name>(<name> <data-type>) <return-type> {}
+func add(a int, b int) int{
+	return a + b
 }
