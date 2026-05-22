@@ -1,4 +1,5 @@
-import 'dart:io'; 
+import 'dart:io';
+import 'package:http/http.dart' as http;
 
 const version = '0.0.1';
 void main(List<String> arguments) {
@@ -8,7 +9,7 @@ void main(List<String> arguments) {
     print('Dartpedia CLI version $version');
   } else if (arguments.first == 'search') {
     final inputArgs = arguments.length > 1 ? arguments.sublist(1) : null;
-    searchArtciles(inputArgs);
+    searchArticles(inputArgs);
   } else {
     printUsage();
   }
@@ -20,13 +21,28 @@ void printUsage() {
   );
 }
 
-void searchArtciles(List<String>? arguments) {
+Future<String> getWikipediaArticle(String articleName) async{
+  final url = Uri.https(
+    'en.wikipedia.org',
+    '/api/rest_v1/page/summary/$articleName'
+  );
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    return response.body;
+  }
+
+  return 'Error: Failed to fetch article $articleName';
+}
+
+void searchArticles(List<String>? arguments) async {
   final String articleTitle;
 
   if(arguments == null || arguments.isEmpty) {
     print('Please provide an article title to search');
 
-    //await article tite
+    //await article title
     articleTitle = stdin.readLineSync() ?? '';
   } else {
     articleTitle = arguments.join(' ');
