@@ -44,10 +44,16 @@ void searchArticles(List<String>? arguments) async {
 
     //await article title
     articleTitle = stdin.readLineSync() ?? '';
+    if (articleTitle == null || articleTitle.isEmpty) {
+      print("No article name provided");
+      return;
+    }
   } else {
     articleTitle = arguments.join(' ');
   }
 
   print("Article Title: $articleTitle");
-  print("Looking up $articleTitle");
+  
+  var articleContent = await getWikipediaArticle(articleTitle);
+  print (articleContent);
 }
